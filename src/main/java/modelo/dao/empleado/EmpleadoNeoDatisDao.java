@@ -13,21 +13,26 @@ import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBRuntimeException;
 import org.neodatis.odb.OID;
 import org.neodatis.odb.ObjectValues;
+import org.neodatis.odb.Objects;
 import org.neodatis.odb.Values;
 import org.neodatis.odb.core.oid.OIDFactory;
+import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.IValuesQuery;
+import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
 import org.neodatis.odb.impl.core.query.values.ValuesCriteriaQuery;
 
 import modelo.Empleado;
 import modelo.dao.AbstractGenericDao;
 import modelo.exceptions.InstanceNotFoundException;
 import util.ConnectionFactory;
+import util.Utils;
 
 /**
  *
  * @author mfernandez
+ * @param <Empleados>
  */
-public class EmpleadoNeoDatisDao 
+public class EmpleadoNeoDatisDao<Empleados> 
 extends AbstractGenericDao<Empleado> 
 implements IEmpleadoDao {
 
@@ -88,17 +93,9 @@ implements IEmpleadoDao {
 		} catch (Exception ex) {			
 			System.err.println("Ha ocurrido una excepción: " + ex.getMessage());
 			this.dataSource.rollback();
-			
-
 		}
 		return exito;																	// nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 	}
-
-
-
-
-
-	
 
 	@Override
 	public float findAvgSalary() {
@@ -114,19 +111,36 @@ implements IEmpleadoDao {
 		return media.floatValue();
 	}
 
-	
-
-
 	@Override
 	public boolean delete(Empleado entity) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean exito = false;
+		try {
+			this.dataSource.delete(entity);
+			this.dataSource.commit();
+			exito = true;
+		} catch (Exception ex) {
+			System.err.println("Ha ocurrido una excepción: " + ex.getMessage());
+			this.dataSource.rollback();
+		}
+		
+		return exito;
 	}
 
 	@Override
 	public List<Empleado> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		IQuery query = new CriteriaQuery(Empleado.class);
+		query.orderByAsc("empno");
+		Objects<Empleado> empleados = dataSource.getObjects(query);
+		
+		return Utils.toList(empleados);
+		
+		/* Ejemplo Maria
+		 *  CriteriaQuery query = new CriteriaQuery(Empleado.class);
+		IQuery iquery = query.orderByAsc("empno");
+		Objects<Empleado> empleados = dataSource.getObjects(iquery);
+		return Utils.toList(empleados);
+		 */
 	}
 
 	@Override
