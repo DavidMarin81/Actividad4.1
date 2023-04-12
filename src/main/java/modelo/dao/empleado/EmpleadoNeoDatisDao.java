@@ -67,12 +67,20 @@ implements IEmpleadoDao {
 		return oidlong;
 	}
 
+	//Tuve que modificar este método para que funcionara el Main
 	@Override
 	public Empleado read(long id) throws InstanceNotFoundException {
 		Empleado empleado = null;
 		try {
-			OID oid = OIDFactory.buildObjectOID(id);
-			empleado = (Empleado) this.dataSource.getObjectFromId(oid);
+			//Codigo Maria
+			//OID oid = OIDFactory.buildObjectOID(id);
+			//empleado = (Empleado) this.dataSource.getObjectFromId(oid);
+			
+			//Codigo David
+			CriteriaQuery query = new CriteriaQuery(Empleado.class, Where.equal("empno", id));
+			Objects<Empleado> empleados = dataSource.getObjects(query);
+			empleado = (Empleado)empleados.getFirst();
+			
 		} catch (ODBRuntimeException ex) {
 		
 			System.err.println("Ha ocurrido una excepción: " + ex.getMessage());

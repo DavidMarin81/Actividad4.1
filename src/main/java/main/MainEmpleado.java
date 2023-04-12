@@ -19,7 +19,8 @@ public class MainEmpleado {
 	public static void main(String[] args) {
 
 		List<Empleado> emps = new ArrayList<>();
-		createEmpleados();
+		//Se comenta para que no cree mas empleados
+		//createEmpleados();
 
 		emps = empleadoServicio.findAll();
 
@@ -35,12 +36,15 @@ public class MainEmpleado {
 		filtrarPorFechas(2014, 8, 1, 2022, 1, 1);
 		filtrarPorEmpleo();
 
-		long oid = 11;
+		//No se encuentra el empleado con ID 11
+		//Tuve que modificar el método read() de EmpleadoNeoDatisDao para que no diese error
+		long oid = 1;
 		Empleado actualizado = updateEmpleado(oid);
 
-		if (actualizado != null) {
-			eliminarEmpleado(actualizado);
-		}
+		//Se comenta para que no elimine al empleado
+		//if (actualizado != null) {
+		//	eliminarEmpleado(actualizado);
+		//}
 		
 		ConnectionFactory.closeConnection();
 
