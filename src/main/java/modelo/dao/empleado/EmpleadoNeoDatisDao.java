@@ -153,8 +153,11 @@ implements IEmpleadoDao {
 
 	@Override
 	public boolean exists(Integer empno) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean exito = false;
+		
+		CriteriaQuery query = new CriteriaQuery(Empleado.class, Where.equal("empno", empno));
+		Objects<Empleado> empleados = dataSource.getObjects(query);
+		return (empleados.size()==1);
 	}
 
 	@Override
