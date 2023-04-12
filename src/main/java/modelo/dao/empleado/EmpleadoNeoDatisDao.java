@@ -172,8 +172,6 @@ implements IEmpleadoDao {
 		IQuery query = new CriteriaQuery(Empleado.class, criterio);
 		Objects<Empleado> empleados = dataSource.getObjects(query);
 		return Utils.toList(empleados);
-	}
+ 	}
 	
-	
-
 }
