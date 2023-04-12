@@ -18,6 +18,9 @@ import org.neodatis.odb.Values;
 import org.neodatis.odb.core.oid.OIDFactory;
 import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.IValuesQuery;
+import org.neodatis.odb.core.query.criteria.And;
+import org.neodatis.odb.core.query.criteria.ComposedExpression;
+import org.neodatis.odb.core.query.criteria.ICriterion;
 import org.neodatis.odb.core.query.criteria.Where;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
 import org.neodatis.odb.impl.core.query.values.ValuesCriteriaQuery;
@@ -162,8 +165,13 @@ implements IEmpleadoDao {
 
 	@Override
 	public List<Empleado> findEmployeesByHireDate(Date from, Date to) {
-		// TODO Auto-generated method stub
-		return null;
+		//Where.ge -> mayor o igual
+		//Where.le -> menor o igual
+		ICriterion criterio = new And().add(Where.ge("hiredate", from))
+				.add(Where.le("hiredate", to)); 
+		IQuery query = new CriteriaQuery(Empleado.class, criterio);
+		Objects<Empleado> empleados = dataSource.getObjects(query);
+		return Utils.toList(empleados);
 	}
 	
 	
