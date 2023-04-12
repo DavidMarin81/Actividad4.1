@@ -14,5 +14,6 @@ public interface IServicioAccount {
 	public Account findByOID(long longOid) throws InstanceNotFoundException ;
 	
 	public List<Account> findAll();
+	public List<Account> obtenerCuentas(int empno);
 
 }

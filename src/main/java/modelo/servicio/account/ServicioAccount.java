@@ -41,5 +41,10 @@ public class ServicioAccount implements IServicioAccount {
 		return accountDao.findAll();
 	}
 
+	@Override
+	public List<Account> obtenerCuentas(int empno) {
+		return accountDao.obtenerCuentas(empno);
+	}
+
 
 }

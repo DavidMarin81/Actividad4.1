@@ -1,7 +1,6 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import modelo.Account;
@@ -12,7 +11,6 @@ import modelo.servicio.account.IServicioAccount;
 import modelo.servicio.account.ServicioAccount;
 import modelo.servicio.empleado.IServicioEmpleado;
 import modelo.servicio.empleado.ServicioEmpleado;
-import util.Utils;
 
 public class MainAccount {
 	
@@ -21,7 +19,14 @@ public class MainAccount {
 
 	public static void main(String[] args) {
 		
+		//Se crean las cuentas
 		//crearCuentas();
+		
+		//Se asignan las cuentas a los empleados
+		List<Account> cuentas = accountServicio.obtenerCuentas(1);
+		for (Account cuenta : cuentas) {
+			System.out.println(cuenta);
+		}
 		
 	}
 	
@@ -31,14 +36,14 @@ public class MainAccount {
 		Empleado empleado1 = null;
 		Empleado empleado2 = null;
 		try {
-			empleado1 = empleadoServicio.findByOID(3);
-			empleado2 = empleadoServicio.findByOID(4);
+			empleado1 = empleadoServicio.findByOID(1);
+			empleado2 = empleadoServicio.findByOID(1);
 		} catch (InstanceNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
-		Account cuenta1 = crearCuenta(empleado1, 3000);
+		Account cuenta1 = crearCuenta(empleado1, 8000);
 		Account cuenta2 = crearCuenta(empleado2, 4000);
 				
 		try {

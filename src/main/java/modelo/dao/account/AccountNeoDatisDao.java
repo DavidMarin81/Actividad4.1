@@ -49,7 +49,7 @@ implements IAccountDao {
 	}
 
 	@Override
-	public modelo.Account read(long id) throws InstanceNotFoundException {
+	public Account read(long id) throws InstanceNotFoundException {
 		Account cuenta = null;
 		try {
 			OID oid = OIDFactory.buildObjectOID(id);
@@ -113,6 +113,14 @@ implements IAccountDao {
 		CriteriaQuery query = new CriteriaQuery(Account.class, Where.equal("accountno", accountno));
 		Objects<Account> cuentas = dataSource.getObjects(query);
 		return (cuentas.size()==1);
+	}
+
+	@Override
+	public List<Account> obtenerCuentas(int empno) {
+		IQuery query = new CriteriaQuery(Account.class, Where.equal("emp.empno", empno));
+		Objects<Account> cuentas = dataSource.getObjects(query);
+		
+		return Utils.toList(cuentas);
 	}
 
 	
