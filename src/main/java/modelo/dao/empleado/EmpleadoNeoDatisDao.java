@@ -18,6 +18,7 @@ import org.neodatis.odb.Values;
 import org.neodatis.odb.core.oid.OIDFactory;
 import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.IValuesQuery;
+import org.neodatis.odb.core.query.criteria.Where;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
 import org.neodatis.odb.impl.core.query.values.ValuesCriteriaQuery;
 
@@ -144,9 +145,10 @@ implements IEmpleadoDao {
 	}
 
 	@Override
-	public List<Empleado> findByJob(String job) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Empleado> findByJob(String puesto) {
+		CriteriaQuery query = new CriteriaQuery(Empleado.class, Where.equal("job", puesto));
+		Objects<Empleado> empleados = dataSource.getObjects(query);
+		return Utils.toList(empleados);
 	}
 
 	@Override
