@@ -23,9 +23,26 @@ public class MainAccount {
 		//crearCuentas();
 		
 		//Se asignan las cuentas a los empleados
-		List<Account> cuentas = accountServicio.obtenerCuentas(1);
+		List<Account> cuentas = accountServicio.obtenerCuentas(2);
 		for (Account cuenta : cuentas) {
 			System.out.println(cuenta);
+		}
+		
+		//Se muestran los datos de las cuentas
+		List<Account> cuentasTotales = accountServicio.findAll();
+		System.out.println("Las cuentas totales son: ");
+		for (Account c : cuentasTotales) {
+			String nombre = c.getEmp().getEname();
+			int empno = c.getEmp().getEmpno();
+			float cantidad = c.getAmount();
+			//int accountno = c.getAccountno();
+			
+			System.out.println("=============================");
+			System.out.println("Nombre: " + nombre);
+			System.out.println("Empno: " + empno);
+			System.out.println("Cantidad: " + cantidad);
+			//System.out.println("N Cuenta: " + accountno);
+			System.out.println("=============================");
 		}
 		
 	}

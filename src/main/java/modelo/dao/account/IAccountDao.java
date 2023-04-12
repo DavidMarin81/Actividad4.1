@@ -10,5 +10,7 @@ public interface IAccountDao extends IGenericDao<Account>{
 	boolean exists(Integer accountno);
 	
 	List<Account> obtenerCuentas(int empno);
+	
+	
 
 }

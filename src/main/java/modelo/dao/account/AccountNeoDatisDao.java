@@ -100,7 +100,6 @@ implements IAccountDao {
 	@Override
 	public List<Account> findAll() {
 		IQuery query = new CriteriaQuery(Account.class);
-		query.orderByAsc("accountno");
 		Objects<Account> cuentas = dataSource.getObjects(query);
 		
 		return Utils.toList(cuentas);
