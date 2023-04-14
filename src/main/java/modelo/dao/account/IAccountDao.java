@@ -11,6 +11,6 @@ public interface IAccountDao extends IGenericDao<Account>{
 	
 	List<Account> obtenerCuentas(int empno);
 	
-	
+	List<Object> obtenerDatos(int empno);
 
 }

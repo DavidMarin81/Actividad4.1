@@ -15,5 +15,6 @@ public interface IServicioAccount {
 	
 	public List<Account> findAll();
 	public List<Account> obtenerCuentas(int empno);
+	public List<Object> obtenerDatos(int empno);
 
 }

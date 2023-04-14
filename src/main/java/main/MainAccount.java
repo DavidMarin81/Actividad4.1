@@ -35,14 +35,21 @@ public class MainAccount {
 			String nombre = c.getEmp().getEname();
 			int empno = c.getEmp().getEmpno();
 			float cantidad = c.getAmount();
-			//int accountno = c.getAccountno();
+			int accountno = c.getAccountno();
 			
 			System.out.println("=============================");
 			System.out.println("Nombre: " + nombre);
 			System.out.println("Empno: " + empno);
 			System.out.println("Cantidad: " + cantidad);
-			//System.out.println("N Cuenta: " + accountno);
+			System.out.println("N Cuenta: " + accountno);
 			System.out.println("=============================");
+		}
+		
+		//Se traen los datos en un array list
+		List<Object> datos = accountServicio.obtenerDatos(1);
+		System.out.println("Se imprimen los datos recogidos por obtener datos: ");
+		for(Object dato : datos) {
+			System.out.println(dato);
 		}
 		
 	}
@@ -62,6 +69,9 @@ public class MainAccount {
 
 		Account cuenta1 = crearCuenta(empleado1, 8000);
 		Account cuenta2 = crearCuenta(empleado2, 4000);
+		
+		cuenta1.setAccountno(1);
+		cuenta2.setAccountno(2);
 				
 		try {
 			cuentas.add(cuenta1);

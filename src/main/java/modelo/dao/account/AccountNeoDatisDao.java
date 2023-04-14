@@ -1,15 +1,19 @@
 package modelo.dao.account;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBRuntimeException;
 import org.neodatis.odb.OID;
+import org.neodatis.odb.ObjectValues;
 import org.neodatis.odb.Objects;
+import org.neodatis.odb.Values;
 import org.neodatis.odb.core.oid.OIDFactory;
 import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.criteria.Where;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
+import org.neodatis.odb.impl.core.query.values.ValuesCriteriaQuery;
 
 import modelo.Account;
 import modelo.dao.AbstractGenericDao;
@@ -120,6 +124,54 @@ implements IAccountDao {
 		Objects<Account> cuentas = dataSource.getObjects(query);
 		
 		return Utils.toList(cuentas);
+	}
+
+	@Override
+	public List<Object> obtenerDatos(int empno) {
+		
+		Values values = dataSource.getValues(new
+				ValuesCriteriaQuery(Account.class, Where.equal("emp.empno", empno))
+				.field("emp.ename")
+				.field("emp.empno")
+				.field("amount")
+				.field("accountno"));
+		
+		//¿Como se puede iniciar un List?
+		ArrayList<Object> datos = new ArrayList<>();
+		
+		for (ObjectValues valor : values) {
+			
+			datos.add(valor.getByIndex(0));
+			datos.add(valor.getByIndex(1));
+			datos.add(valor.getByIndex(2));
+			datos.add(valor.getByIndex(3));
+			
+			//Por index
+			System.out.println("\nPor index:\n");
+			System.out.println("Nombre: " + valor.getByIndex(0));
+			System.out.println("NumEmp: " + valor.getByIndex(1));
+			System.out.println("Cantidad: " + valor.getByIndex(2));
+			System.out.println("NumCuenta: " + valor.getByIndex(3));
+			
+			//Por alias
+			System.out.println("\nPor alias:\n");
+			System.out.println("Nombre: " + valor.getByAlias("emp.ename"));
+			System.out.println("NumEmp: " + valor.getByAlias("emp.empno"));
+			System.out.println("Cantidad: " + valor.getByAlias("amount"));
+			System.out.println("NumCuenta: " + valor.getByAlias("accountno"));
+			
+			//Por valor
+			System.out.println("\nPor valor:\n");
+			System.out.println(valor.toString());
+		}
+		
+		//Se imprimen los datos de la lista
+		System.out.println("Se imprime la lista: ");
+		for (Object dato : datos) {
+			System.out.println(dato);
+		}
+			
+		return datos;
 	}
 
 	
