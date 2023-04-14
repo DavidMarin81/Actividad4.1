@@ -47,7 +47,7 @@ public class MainAccount {
 		
 		//Se traen los datos en un array list
 		List<Object> datos = accountServicio.obtenerDatos(1);
-		System.out.println("Se imprimen los datos recogidos por obtener datos: ");
+		System.out.println("\nSe imprimen los datos recogidos por obtenerdatos(): ");
 		for(Object dato : datos) {
 			System.out.println(dato);
 		}

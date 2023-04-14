@@ -136,39 +136,33 @@ implements IAccountDao {
 				.field("amount")
 				.field("accountno"));
 		
-		//¿Como se puede iniciar un List?
 		ArrayList<Object> datos = new ArrayList<>();
 		
 		for (ObjectValues valor : values) {
 			
-			datos.add(valor.getByIndex(0));
-			datos.add(valor.getByIndex(1));
-			datos.add(valor.getByIndex(2));
-			datos.add(valor.getByIndex(3));
+			//Se añaden los valores a la lista
+			//Se añade por grupos de fila
+			datos.add(valor);
+			
+			//Se hace esto para saber utilizar getByIndex, getByAlias y .toString
 			
 			//Por index
-			System.out.println("\nPor index:\n");
+			System.out.println("\nPor index:");
 			System.out.println("Nombre: " + valor.getByIndex(0));
 			System.out.println("NumEmp: " + valor.getByIndex(1));
 			System.out.println("Cantidad: " + valor.getByIndex(2));
 			System.out.println("NumCuenta: " + valor.getByIndex(3));
 			
 			//Por alias
-			System.out.println("\nPor alias:\n");
+			System.out.println("\nPor alias:");
 			System.out.println("Nombre: " + valor.getByAlias("emp.ename"));
 			System.out.println("NumEmp: " + valor.getByAlias("emp.empno"));
 			System.out.println("Cantidad: " + valor.getByAlias("amount"));
 			System.out.println("NumCuenta: " + valor.getByAlias("accountno"));
 			
 			//Por valor
-			System.out.println("\nPor valor:\n");
+			System.out.println("\nPor valor:");
 			System.out.println(valor.toString());
-		}
-		
-		//Se imprimen los datos de la lista
-		System.out.println("Se imprime la lista: ");
-		for (Object dato : datos) {
-			System.out.println(dato);
 		}
 			
 		return datos;
